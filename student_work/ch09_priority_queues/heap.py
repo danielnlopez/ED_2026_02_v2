@@ -43,4 +43,21 @@ class Heap:
         return menor
 
     def build_heap(self, lista):
-        pass
+        self.arreglo = [float('-inf')] + list(lista)
+
+        for indice in range((len(self.arreglo) - 1) // 2, 0, -1):
+            while 2 * indice < len(self.arreglo):
+                hijo = 2 * indice
+                hijo_derecho = hijo + 1
+
+                if (hijo_derecho < len(self.arreglo)
+                        and self.arreglo[hijo_derecho] < self.arreglo[hijo]):
+                    hijo = hijo_derecho
+
+                if self.arreglo[indice] <= self.arreglo[hijo]:
+                    break
+
+                self.arreglo[indice], self.arreglo[hijo] = (
+                    self.arreglo[hijo], self.arreglo[indice]
+                )
+                indice = hijo
